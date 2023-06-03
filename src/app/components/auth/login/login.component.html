@@ -1,0 +1,34 @@
+<!-- Formulario de Login -->
+<mat-card>
+    <!-- Cabecera -->
+    <mat-card-header>
+
+        <mat-card-title>
+            Login
+        </mat-card-title>
+        <mat-card-subtitle>
+            Accede a tu cuenta
+        </mat-card-subtitle>
+    </mat-card-header>
+    <!-- Cuerpo de Login -->
+    <mat-card-content>
+        <form [formGroup]="formLogin">
+
+            <!-- Email -->
+            <mat-form-field>
+                <input matInput placeholder="Email" (submit)="submitLogin()" formControlName="email">
+                <mat-error *ngIf="true">Error en el campo</mat-error>
+            </mat-form-field>
+
+            <!-- Passwor -->
+            <mat-form-field>
+                <input matInput placeholder="Password" formControlName="password">
+                <mat-error *ngIf="true">Error en el campo</mat-error>
+            </mat-form-field>
+
+            <!-- Boton para hacer submit del formulario -->
+            <!-- Se deshabilita -->
+            <button mat-raised-button color="primary" type="submit" [disabled]="false">Login</button>
+        </form>
+    </mat-card-content>
+</mat-card>
