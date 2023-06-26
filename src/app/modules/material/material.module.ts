@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -15,14 +16,16 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatCardModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    // MatRadioModule,
   ],
   exports: [
     // Exportamos los modulos y/o componen importados,
     MatFormFieldModule,
     MatCardModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    // MatRadioModule,
   ]
 })
 export class MaterialModule { }

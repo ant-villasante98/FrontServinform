@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 
 @NgModule({
   declarations: [
     LoginPageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegisterPageComponent
   ],
   imports: [
     CommonModule,

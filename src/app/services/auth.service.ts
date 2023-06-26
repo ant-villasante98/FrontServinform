@@ -15,6 +15,6 @@ export class AuthService {
     user.password = 'password';
     let body = user;
 
-    return this._http.post(`${this.URL_API}Account`, body)
+    return this._http.post(`${this.URL_API}Account/PostLogin`, body)
   }
 }
