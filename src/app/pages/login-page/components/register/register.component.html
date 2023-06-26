@@ -1,0 +1,42 @@
+<!-- Formulario para Resgistrarse -->
+<mat-card>
+    <!-- Cabecera -->
+    <mat-card-header>
+        <mat-card-title>
+            Registrar
+        </mat-card-title>
+        <mat-card-subtitle>
+            Crea tu cuenta
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Cuerpo de Registrar -->
+    <mat-card-content>
+        <form [formGroup]="formRegister" (submit)="submitRegister()">
+
+            <!-- Email -->
+            <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+            <!-- Nombre -->
+            <mat-form-field>
+                <input matInput placeholder="Nombre" formControlName="nombre" type="email">
+            </mat-form-field>
+            <!-- Apellido -->
+            <mat-form-field>
+                <input matInput placeholder="Apellido" formControlName="apellido" type="text">
+            </mat-form-field>
+            <!-- Password -->
+            <mat-form-field>
+                <!-- Cambiar Type a password -->
+                <input matInput placeholder="Password" formControlName="password" type="text">
+            </mat-form-field>
+
+            <!-- Boton para Cancelar -->
+            <button mat-raised-button color="primary">Cancelar</button>
+            <!-- Boton para Registrarse -->
+            <button mat-raised-button color="primary" type="submit">Registrar</button>
+        </form>
+    </mat-card-content>
+</mat-card>

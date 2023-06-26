@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  @Output() loginAction: EventEmitter<{ userEmail: string, password: string }> = new EventEmitter<{ userEmail: string, password: string }>();
+
   formLogin: FormGroup = new FormGroup({})
   constructor(private formBuilder: FormBuilder) {
   }
@@ -20,7 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    // Action de submit
+    console.log('Valores del Formulario emitidos');
+
+    this.loginAction.emit(this.formLogin.value)
+
   }
 
 }
