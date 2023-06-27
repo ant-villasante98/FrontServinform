@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IUser } from 'src/app/models/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+  @Output() registerAction: EventEmitter<IUser> = new EventEmitter<IUser>()
 
   formRegister: FormGroup = new FormGroup({})
 
@@ -17,6 +20,7 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
+      idRol: 2
     })
   }
 
@@ -26,7 +30,11 @@ export class RegisterComponent implements OnInit {
   get apellido() { return this.formRegister.get('apellido'); }
 
   submitRegister() {
-    console.log('Accion de registrar')
+    if (this.formRegister.valid) {
+
+      console.log('Accion de registrar')
+      this.registerAction.emit(this.formRegister.value);
+    }
   }
 
 }

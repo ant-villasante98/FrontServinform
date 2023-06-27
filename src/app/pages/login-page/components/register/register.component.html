@@ -17,26 +17,34 @@
             <!-- Email -->
             <mat-form-field>
                 <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="email?.errors?.['required'] && email?.touched">El campo es obligatorio</mat-error>
+                <mat-error *ngIf="email?.errors?.['email'] && email?.touched">Ingrese correctamente un email</mat-error>
             </mat-form-field>
 
             <!-- Nombre -->
             <mat-form-field>
                 <input matInput placeholder="Nombre" formControlName="nombre" type="email">
+                <mat-error *ngIf="nombre?.errors?.['required'] && nombre?.touched">El campo es obligatorio</mat-error>
             </mat-form-field>
             <!-- Apellido -->
             <mat-form-field>
                 <input matInput placeholder="Apellido" formControlName="apellido" type="text">
+                <mat-error *ngIf="apellido?.errors?.['required'] && apellido?.touched">El campo es
+                    obligatorio</mat-error>
             </mat-form-field>
             <!-- Password -->
             <mat-form-field>
                 <!-- Cambiar Type a password -->
-                <input matInput placeholder="Password" formControlName="password" type="text">
+                <input matInput placeholder="Password" formControlName="password" type="password">
+                <mat-error *ngIf="password?.errors?.['required'] && password?.touched">El campo es
+                    obligatorio</mat-error>
             </mat-form-field>
 
             <!-- Boton para Cancelar -->
-            <button mat-raised-button color="primary">Cancelar</button>
+            <!-- <button mat-raised-button routerLink="/auth/login">Cancelar</button> -->
             <!-- Boton para Registrarse -->
-            <button mat-raised-button color="primary" type="submit">Registrar</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="formRegister.invalid"
+                type="submit">Registrar</button>
         </form>
     </mat-card-content>
 </mat-card>

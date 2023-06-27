@@ -1,2 +1,4 @@
 <p>Pagina de registro</p>
-<app-register></app-register>
+<app-register (registerAction)="registerUser($event)"></app-register>
+
+<p *ngIf="usuarioCreado">{{usuarioCreado| json}}</p>
