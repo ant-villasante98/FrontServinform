@@ -1,4 +1,8 @@
-<p>Pagina de registro</p>
+<div>
+
+    <button mat-stroked-button color="primary" class="arrow-back" routerLink="./.."> <mat-icon>arrow_back</mat-icon>
+        Atras</button>
+</div>
 <app-register (registerAction)="registerUser($event)"></app-register>
 
-<p *ngIf="usuarioCreado">{{usuarioCreado| json}}</p>
+<!-- <p *ngIf="usuarioCreado">{{usuarioCreado| json}}</p> -->

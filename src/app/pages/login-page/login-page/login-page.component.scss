@@ -1,0 +1,10 @@
+:host{
+    display: grid;
+    grid-template-rows: 4rem calc(100% - 4rem);
+    width: 100%;
+    min-height: 100vh;
+}
+.arrow-back{
+    margin-top: 1rem;
+    margin-left: 1rem;
+}

@@ -16,9 +16,11 @@
 
             <!-- Email -->
             <mat-form-field>
-                <input matInput placeholder="Email" formControlName="email">
-                <mat-error *ngIf="email?.errors?.['required'] && email?.touched">El campo es obligatorio</mat-error>
-                <mat-error *ngIf="email?.errors?.['email'] && email?.touched">Ingrese correctamente un email</mat-error>
+                <input matInput placeholder="Email" formControlName="userEmail">
+                <mat-error *ngIf="userEmail?.errors?.['required'] && userEmail?.touched">El campo es
+                    obligatorio</mat-error>
+                <mat-error *ngIf="userEmail?.errors?.['email'] && userEmail?.touched">Ingrese correctamente un
+                    email</mat-error>
             </mat-form-field>
 
             <!-- Password -->
@@ -30,12 +32,13 @@
 
             <!-- Boton para hacer submit del formulario -->
             <!-- Se deshabilita -->
-            <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid">Login</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid"> Login </button>
 
         </form>
         <mat-card-footer>
 
-            <a routerLink="/auth/register">Registrar cuenta</a>
+            <button mat-button color="primary" routerLink="/auth/register" class="btn-register">Registrar
+                cuenta</button>
         </mat-card-footer>
     </mat-card-content>
 </mat-card>

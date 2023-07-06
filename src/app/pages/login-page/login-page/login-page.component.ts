@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-login-page',
@@ -8,11 +10,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private _authService: AuthService) {
+  constructor(
+    private _authService: AuthService,
+    private router: Router,
+    private _state: StateService
+  ) {
 
   }
   ngOnInit(): void {
-    console.log('hola')
+    this.verificarInicioSesion()
+
   }
 
   loginUser(user: { userEmail: string, password: string }) {
@@ -20,13 +27,27 @@ export class LoginPageComponent implements OnInit {
       .subscribe({
         next: (valor: any) => {
           if (valor.token) {
+            // Guardamos el token como "tokenServinform"
+            sessionStorage.setItem('tokenServinform', valor.token);
+            // console.table(valor); 
 
-            sessionStorage.setItem('tokenServinform', valor.token)
-            console.table(valor);
+            // Guardamos el estado
+            this._state.stateSesion = true;
+
+            this.router.navigate(["/dashboard"])
+
           }
         },
-        error: (error: any) => console.error(`Error al iniciar sesion ${error}`),
+        error: (error: any) => {
+          console.error(`Error al iniciar sesion: ${error.error}`);
+        },
         complete: () => console.info(`Autenticacion de usario terminada`)
       })
+  }
+
+  verificarInicioSesion() {
+    if (this._state.stateSesion) {
+      this.router.navigate(["/dashboard"])
+    }
   }
 }

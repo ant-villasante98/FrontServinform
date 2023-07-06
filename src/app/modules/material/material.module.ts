@@ -5,6 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -18,6 +20,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatInputModule,
     // MatRadioModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   exports: [
     // Exportamos los modulos y/o componen importados,
@@ -25,7 +29,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCardModule,
     MatButtonModule,
     MatInputModule,
-    // MatRadioModule,
+    // MatRadioModule,,
+    MatToolbarModule,
+    MatIconModule
   ]
 })
 export class MaterialModule { }

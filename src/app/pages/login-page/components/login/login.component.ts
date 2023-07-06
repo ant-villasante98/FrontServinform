@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     this.formLogin = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
+      userEmail: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
     })
   }
 
-  get email() {
+  get userEmail() {
     return this.formLogin.get('email');
   }
 

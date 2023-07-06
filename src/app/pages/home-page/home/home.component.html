@@ -1,2 +1,17 @@
-<p>Pagina de Inicio</p>
-<a routerLink="/auth"> Iniciar Secion</a>
+<mat-toolbar color="primary">
+    <span class="toolbar-title">Gestion de Facturas</span>
+    <span class="space-toolbar"></span>
+    <button mat-flat-button routerLink="/auth" *ngIf="!stateSesion">Iniciar Sesion</button>
+    <button mat-flat-button *ngIf="stateSesion" (click)="logout()">Cerrar Sesion</button>
+
+</mat-toolbar>
+<div class="container">
+    <div class="flex-container">
+        <div class="text-home">
+            <h2 class="home-title">Aplicacion de Gestion de Facturas</h2>
+            <p>Esta es una aplication web par administrar las facturas de tus Empresas.</p>
+            <button mat-raised-button color="primary" class="btn-home" routerLink="/dashboard">Comenzar</button>
+
+        </div>
+    </div>
+</div>

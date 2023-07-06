@@ -1,0 +1,35 @@
+.toolbar-title{
+    font-size: 20px;
+    font-weight: bolder;
+}
+.space-toolbar{
+    flex: 1 1 auto;
+}
+
+.container{
+    // box-sizing: border-box;
+    padding: 1.5rem;
+    width: 100%;
+    height: calc(100vh - 56px);
+}
+.flex-container{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.text-home{
+    padding: .5rem;
+    max-width: 500px;
+}
+
+.home-title{
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-home{
+    margin-left: 2rem;
+}

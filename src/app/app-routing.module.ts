@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VerifyTokenGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./pages/login-page/login-page.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard-page/dashboard-page.module').then(m => m.DashboardPageModule),
+    canActivate: [VerifyTokenGuard()]
   }
 
 ];

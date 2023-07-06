@@ -5,7 +5,8 @@ import { IUser } from 'src/app/models/user.interface';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  // Usamos el mismo archivo css de login
+  styleUrls: ['./../login/login.component.scss', './register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
