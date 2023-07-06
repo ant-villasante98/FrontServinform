@@ -18,7 +18,6 @@ export class LoginPageComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.verificarInicioSesion()
 
   }
 
@@ -45,9 +44,5 @@ export class LoginPageComponent implements OnInit {
       })
   }
 
-  verificarInicioSesion() {
-    if (this._state.stateSesion) {
-      this.router.navigate(["/dashboard"])
-    }
-  }
+
 }

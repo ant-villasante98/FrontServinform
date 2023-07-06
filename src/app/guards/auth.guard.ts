@@ -17,7 +17,9 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
             .pipe(
                 catchError((err) => {
                     console.error(`Error en le verificacion del token `)
-                    console.table(err)
+                    console.table(err.error)
+                    sessionStorage.removeItem("tokenServinform");
+                    console.info(err.error)
                     return of({ sucess: false })
                 }),
                 map((value: any) => {
@@ -37,5 +39,14 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
             )
 
 
+    }
+}
+
+export function VerifySession(): CanActivateFn {
+    return () => {
+        if (sessionStorage.getItem("tokenServinform")) {
+            return inject(Router).createUrlTree(["/dashboard"])
+        }
+        return true;
     }
 }
