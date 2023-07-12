@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IUser } from '../models/user.interface';
 import { map, of } from 'rxjs';
+import { EnvService } from './env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private URL_API = 'http://localhost:5092/api/'
+  private URL_API = inject(EnvService).GET_URL_API
 
 
   constructor(private _http: HttpClient) { }

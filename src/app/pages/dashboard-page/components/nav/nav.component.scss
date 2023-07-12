@@ -15,13 +15,18 @@
   top: 0;
   z-index: 1;
 }
-.container {
-  // box-sizing: border-box;
-  padding: 1.5rem;
-  width: 100%;
-  height: calc(100vh - 56px);
-}
-
 .space-toolbar {
   flex: 1 1 auto;
+}
+.container {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 56px);
+}
+
+
+@media only screen and (min-width:600px) {
+  .container{
+    min-height: calc(100vh - 64px);
+  }
 }

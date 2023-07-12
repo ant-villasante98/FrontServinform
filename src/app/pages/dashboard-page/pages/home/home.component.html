@@ -1,0 +1,13 @@
+<div class="dashboard-home-title">
+    <h3>Bienvenido</h3>
+    <p>
+        {{userName| titlecase}}
+    </p>
+    <mat-divider></mat-divider>
+</div>
+<div>
+    <p class="table-title">Lista de Facturas Recientes</p>
+
+    <!-- <p>{{(foo$|async|json)}}</p> -->
+    <app-table [sourceTable]="foo$"></app-table>
+</div>

@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  width: min(450px, 90%);
+  // width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+mat-card-header {
+  display: unset;
+  margin-bottom: 1rem;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+mat-form-field {
+  display: block;
+  // min-width: 350px;
+  min-width: 90%;
+  width: 100%;
+}
+form {
+  width: 100%;
+}

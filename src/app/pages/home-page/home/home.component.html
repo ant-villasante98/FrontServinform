@@ -10,8 +10,9 @@
         <div class="text-home">
             <h2 class="home-title">Aplicacion de Gestion de Facturas</h2>
             <p>Esta es una aplication web par administrar las facturas de tus Empresas.</p>
-            <button mat-raised-button color="primary" class="btn-home" routerLink="/dashboard">Comenzar</button>
-
+            <button mat-raised-button color="primary" class="btn-home" routerLink="/dashboard">
+                {{stateSesion?"Ir al Dashboard":"Comenzar"}}
+            </button>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { catchError, map, of } from "rxjs";
+import { StateService } from "../services/state.service";
 
 export function VerifyTokenGuard(path?: string): CanActivateFn {
     return () => {
@@ -11,6 +12,7 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
             return inject(Router).createUrlTree(["/auth/login"]);
         }
         let router = inject(Router);
+        let stateSesion = inject(StateService)
 
         return inject(AuthService)
             .verifyToken()
@@ -29,6 +31,12 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
                     }
 
                     userToken = value.token;
+                    sessionStorage.setItem("tokenServinform", userToken.token)
+                    stateSesion.stateSesion = true;
+
+                    stateSesion.userEmail = userToken?.userEmail || "";
+                    stateSesion.userName = userToken?.userName || "";
+
 
                     if (path) {
                         return router.createUrlTree([path]);

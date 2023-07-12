@@ -1,0 +1,72 @@
+<!-- Formulario de Login -->
+<mat-card>
+    <!-- Cabecera -->
+    <mat-card-header>
+
+        <mat-card-title>
+            Agregar Empresa
+        </mat-card-title>
+        <!-- <mat-card-subtitle>
+            Accede a tu cuenta
+        </mat-card-subtitle> -->
+    </mat-card-header>
+    <!-- Cuerpo de Login -->
+    <mat-card-content>
+        <form [formGroup]="formEmpresa" (submit)="submitEmpresa()">
+
+            <!-- Id -->
+            <mat-form-field *ngIf="sourceEmpresa">
+                <mat-label>Id</mat-label>
+                <input matInput disabled placeholder="Id" value="--">
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+            <!-- Email -->
+            <mat-form-field *ngIf="false">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="emailUsuario">
+                <mat-error>Error</mat-error>
+                <!-- <mat-error *ngIf="emailUsuario?.errors?.['required'] && emailUsuario?.touched">El campo es
+                    obligatorio</mat-error>
+                <mat-error *ngIf="emailUsuario?.errors?.['email'] && emailUsuario?.touched">Ingrese correctamente un
+                    email</mat-error> -->
+            </mat-form-field>
+
+            <!-- Nombre de Empresa -->
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+
+                <input matInput placeholder="Nombre de Empresa" formControlName="nombre" type="text">
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+
+            <!-- NroCalle -->
+            <mat-form-field>
+                <mat-label>Nro Calle</mat-label>
+                <input matInput placeholder="Nro Calle" formControlName="nroCalle" type="text">
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+
+            <!-- Calle -->
+            <mat-form-field>
+                <mat-label>Barrio</mat-label>
+                <input matInput placeholder="Barrio" formControlName="idBarrio" type="text">
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>
+                    Ciudad
+                </mat-label>
+                <mat-select>
+                    <mat-option value="1" selected>Hola</mat-option>
+                    <mat-option value="2">Hello</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Boton para hacer submit del formulario -->
+            <!-- Se deshabilita -->
+            <!-- <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid"> Login </button> -->
+
+        </form>
+    </mat-card-content>
+</mat-card>

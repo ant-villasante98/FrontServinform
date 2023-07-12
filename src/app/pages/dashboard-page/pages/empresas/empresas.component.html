@@ -1,0 +1,19 @@
+<h3 class="title-empresas">Empresas</h3>
+<div class="btn-add-empresa">
+    <button mat-raised-button color="warn">
+        <mat-icon>add_box</mat-icon>
+        <div>
+            Agregar Empresa
+        </div>
+    </button>
+</div>
+<app-detalle-empresa></app-detalle-empresa>
+<div class="card-list">
+
+    <!-- <app-card></app-card> -->
+
+    <app-card (modificar)="changeEmpresa($event)" (eliminar)="deleteEmpresa($event)"
+        *ngFor="let element of listEmpresas$|async" [sourceCard]="element">
+
+    </app-card>
+</div>

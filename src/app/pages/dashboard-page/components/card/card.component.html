@@ -1,0 +1,19 @@
+<mat-card>
+    <!-- <mat-card-header> -->
+    <mat-card-title>
+        <div>
+
+            {{sourceCard?.nombre}}
+        </div>
+    </mat-card-title>
+    <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
+    <!-- </mat-card-header> -->
+    <mat-card-content>
+        <mat-icon>domain</mat-icon>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="change()">Modificar</button>
+        <button mat-raised-button color="warn" (click)="delete()">Eliminar</button>
+    </mat-card-actions>
+
+</mat-card>
