@@ -38,6 +38,11 @@
                 <input matInput placeholder="Password" formControlName="password" type="password">
                 <mat-error *ngIf="password?.errors?.['required'] && password?.touched">El campo es
                     obligatorio</mat-error>
+                <mat-error
+                    *ngIf="password?.errors?.['minlength'] && password?.touched && !password?.errors?.['required']">Debe
+                    contener al mennos 8 caracteres</mat-error>
+                <mat-error *ngIf="password?.errors?.['pattern'] && password?.touched">requiere:
+                    minuscula, mayuscula, numero y signo({{this.signosPattern}})</mat-error>
             </mat-form-field>
 
             <!-- Boton para Cancelar -->
@@ -45,6 +50,7 @@
             <!-- Boton para Registrarse -->
             <button class="btn" mat-raised-button color="primary" type="submit" [disabled]="formRegister.invalid"
                 type="submit">Registrar</button>
+            <p>{{password?.errors|json}}</p>
         </form>
     </mat-card-content>
 </mat-card>

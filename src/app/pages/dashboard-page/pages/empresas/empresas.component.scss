@@ -16,19 +16,22 @@
   min-width: 320px;
 }
 
-.btn-add-empresa {
+.btn-action-empresa {
   margin: 0 2rem 1rem auto;
   width: max-content;
 }
-.btn-add-empresa button {
+.btn-action-empresa button {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.btn-add-empresa mat-icon {
+.btn-action-empresa mat-icon {
   font-size: 2rem;
   width: auto;
   height: auto;
 }
-.btn-add-empresa div {
+.btn-action-empresa div {
   width: min-content;
+}
+button {
+  z-index: 0;
 }

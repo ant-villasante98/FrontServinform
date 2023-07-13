@@ -10,6 +10,8 @@ import { IUser } from 'src/app/models/user.interface';
 })
 export class RegisterComponent implements OnInit {
 
+  signosPattern: string = "$@$!%*?&#";
+
   @Output() registerAction: EventEmitter<IUser> = new EventEmitter<IUser>()
 
   formRegister: FormGroup = new FormGroup({})
@@ -18,7 +20,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.formRegister = this._formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.required],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])([A-Za-z\\d$@$!%*?&#]|[^ ]){8,30}$")])],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       idRol: 2

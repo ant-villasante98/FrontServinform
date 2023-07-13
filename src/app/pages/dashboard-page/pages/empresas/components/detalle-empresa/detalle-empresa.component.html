@@ -39,33 +39,78 @@
                 <mat-error>Error</mat-error>
             </mat-form-field>
 
-            <!-- NroCalle -->
+            <!-- Pais -->
             <mat-form-field>
-                <mat-label>Nro Calle</mat-label>
-                <input matInput placeholder="Nro Calle" formControlName="nroCalle" type="text">
-                <mat-error>Error</mat-error>
+                <mat-label>
+                    Pais
+                </mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let p of listPaises" [value]="p.id"
+                        (click)="selectPais(p.id)">{{p.nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Provincia -->
+            <mat-form-field>
+                <mat-label>
+                    Provincia
+                </mat-label>
+                <mat-select [disabled]="listProvincias==null">
+                    <mat-option *ngFor="let pr of listProvincias" [value]="pr.id"
+                        (click)="selectProvincia(pr.id)">{{pr.nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Departamento -->
+            <mat-form-field>
+                <mat-label>
+                    Departamento
+                </mat-label>
+                <mat-select [disabled]="listDepartamentos==null">
+                    <mat-option *ngFor="let d of listDepartamentos" [value]="d.id"
+                        (click)="selectDepartamento(d.id)">{{d.nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Localidad -->
+            <mat-form-field>
+                <mat-label>
+                    Localidad
+                </mat-label>
+                <mat-select [disabled]="listLocalidades==null">
+                    <mat-option *ngFor="let lo of listLocalidades" [value]="lo.id"
+                        (click)="selectLocalidad(lo.id)">{{lo.nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Barrio -->
+            <mat-form-field>
+                <mat-label>
+                    Barrio
+                </mat-label>
+                <mat-select formControlName="idBarrio">
+                    <mat-option *ngFor="let b of listBarrios" [value]="b.id">{{b.nombre}}</mat-option>
+                </mat-select>
             </mat-form-field>
 
             <!-- Calle -->
             <mat-form-field>
-                <mat-label>Barrio</mat-label>
-                <input matInput placeholder="Barrio" formControlName="idBarrio" type="text">
+                <mat-label>Calle</mat-label>
+                <input matInput placeholder="Nombre de calle" formControlName="calle" type="text">
                 <mat-error>Error</mat-error>
             </mat-form-field>
 
+            <!-- NroCalle -->
             <mat-form-field>
-                <mat-label>
-                    Ciudad
-                </mat-label>
-                <mat-select>
-                    <mat-option value="1" selected>Hola</mat-option>
-                    <mat-option value="2">Hello</mat-option>
-                </mat-select>
+                <mat-label>Nro Calle</mat-label>
+                <input matInput placeholder="Nro Calle" formControlName="nroCalle" type="number">
+                <mat-error>Error</mat-error>
             </mat-form-field>
 
             <!-- Boton para hacer submit del formulario -->
             <!-- Se deshabilita -->
-            <!-- <button mat-raised-button color="primary" type="submit" [disabled]="formLogin.invalid"> Login </button> -->
+            <button mat-raised-button color="primary" type="submit" [disabled]="formEmpresa.invalid"> Crear Empresa
+            </button>
 
         </form>
     </mat-card-content>

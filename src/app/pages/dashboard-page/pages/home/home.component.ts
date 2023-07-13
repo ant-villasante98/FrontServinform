@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   userEmail: string = ""
   userName: string = ""
 
-  foo$: Observable<IFactura[]> | null = null
+  facturasRecientes$: Observable<IFactura[]> | null = null
 
   constructor(
     private _facturaService: FacturaService
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     console.log(this.userEmail);
     console.log(this.userName);
 
-    this.foo$ = this._facturaService.FacturasPorUsuario(this.userEmail)
+    this.facturasRecientes$ = this._facturaService.FacturasPorUsuario(this.userEmail)
     // .subscribe(
     //   {
     //     next: (value: any) => { console.table(value) }

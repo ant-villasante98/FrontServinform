@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { StateService } from 'src/app/services/state.service';
 
 @Component({
@@ -27,7 +26,4 @@ export class DashboardComponent implements OnInit {
     // Navegamos a la pagina home
     this.router.navigate(["/home"]);
   }
-
-
-
 }

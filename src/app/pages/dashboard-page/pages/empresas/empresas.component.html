@@ -1,19 +1,34 @@
 <h3 class="title-empresas">Empresas</h3>
-<div class="btn-add-empresa">
-    <button mat-raised-button color="warn">
-        <mat-icon>add_box</mat-icon>
-        <div>
-            Agregar Empresa
-        </div>
-    </button>
-</div>
-<app-detalle-empresa></app-detalle-empresa>
-<div class="card-list">
+<ng-container *ngIf="btnAction;else AgregarEmpresa">
 
-    <!-- <app-card></app-card> -->
+    <div class="btn-action-empresa">
+        <button mat-raised-button color="primary" (click)="clickBtnAction(false)">
+            <mat-icon>add_box</mat-icon>
+            <div>
+                Agregar Empresa
+            </div>
+        </button>
+    </div>
+    <div class="card-list">
+        <app-card (modificar)="changeEmpresa($event)" (eliminar)="deleteEmpresa($event)"
+            *ngFor="let element of listEmpresas$|async" [sourceCard]="element"></app-card>
+    </div>
+</ng-container>
 
-    <app-card (modificar)="changeEmpresa($event)" (eliminar)="deleteEmpresa($event)"
-        *ngFor="let element of listEmpresas$|async" [sourceCard]="element">
 
-    </app-card>
-</div>
+<ng-template #AgregarEmpresa>
+    <div class="btn-action-empresa">
+        <button mat-raised-button color="warn" (click)="clickBtnAction(true)">
+            <mat-icon>cancel</mat-icon>
+            <div>
+                Cancelar
+            </div>
+        </button>
+    </div>
+
+    <app-detalle-empresa [paises]="listPaises" (selectedPais)="obtenerProvincias($event)" [provincias]="listProvincias"
+        (selectedProvincia)="obtenerDepartamentos($event)" [departamentos]="listDepartamentos"
+        (selectedDepartamento)="obtenerLocalidades($event)" [localidades]="listLocalidades"
+        (selectedLocalidad)="obtenerBarrios($event)" [barrios]="listBarrios"
+        (crearEmpresa)="crearEmpresa($event)"></app-detalle-empresa>
+</ng-template>
