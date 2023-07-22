@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/user.interface';
 
@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
   @Output() registerAction: EventEmitter<IUser> = new EventEmitter<IUser>()
 
   formRegister: FormGroup = new FormGroup({})
+
+  @Input() flagSubmit!: boolean;
 
   constructor(private _formBuilder: FormBuilder) { }
   ngOnInit(): void {
@@ -33,7 +35,7 @@ export class RegisterComponent implements OnInit {
   get apellido() { return this.formRegister.get('apellido'); }
 
   submitRegister() {
-    if (this.formRegister.valid) {
+    if (this.formRegister.valid && this.flagSubmit) {
 
       console.log('Accion de registrar')
       this.registerAction.emit(this.formRegister.value);

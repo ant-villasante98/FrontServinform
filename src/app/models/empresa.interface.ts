@@ -4,5 +4,6 @@ export interface IEmpresa {
     calle: string
     nroCalle: number
     idBarrio: number
-    email: string
+    emailUsuario: string
+    nombreBarrio?: string
 }

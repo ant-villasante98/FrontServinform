@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ɵpatchComponentDefWithScope } from '@angular/core';
 import { EmpresaService } from '../../services/empresa.service';
 import { Observable } from 'rxjs';
 import { StateService } from 'src/app/services/state.service';
@@ -6,9 +6,11 @@ import { IEmpresa } from 'src/app/models/empresa.interface';
 import { UbicacionService } from '../../services/ubicacion.service';
 import { IPais } from 'src/app/models/pais.interface';
 import { IProvincia } from 'src/app/models/provincia.interface';
-import { NumberValueAccessor } from '@angular/forms';
 import { IDepartamento } from 'src/app/models/departamento.interface';
 import { IBarrio } from 'src/app/models/barrio.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-empresas',
@@ -22,6 +24,8 @@ export class EmpresasComponent implements OnInit {
   listEmpresas$: Observable<any> | null = null;
   userEmail: string = inject(StateService).userEmail;
 
+  ModificarEmpresa: IEmpresa | null = null;
+
   listPaises: IPais[] | null = null;
   listProvincias: IProvincia[] | null = null;
   listDepartamentos: IDepartamento[] | null = null;
@@ -31,11 +35,13 @@ export class EmpresasComponent implements OnInit {
 
   constructor(
     private _empresaService: EmpresaService,
-    private _ubicacion: UbicacionService
+    private _ubicacion: UbicacionService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail);
+    this.cargarListaEmpresas()
     this._ubicacion.obtenerPaises()
       .subscribe(
         {
@@ -44,17 +50,51 @@ export class EmpresasComponent implements OnInit {
           }
         }
       );
+
   }
 
 
-  deleteEmpresa(idEmpresa: number) {
-    console.log(`Id empresas: ${idEmpresa}`)
-    alert(`Borrar empresa con ID: ${idEmpresa}`);
+  cargarListaEmpresas() {
+    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail);
+  }
+
+  deleteEmpresa(empresa: IEmpresa) {
+    console.log(`Id empresas: ${empresa.id} , nombre: ${empresa.nombre}`);
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        title: `Advertencia`,
+        content: {
+          subTitle: `Esta seguro de querer borrar`,
+          body: `${empresa.nombre}`
+        }
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("-------Elemento eliminado")
+        this._empresaService.delete(empresa.id)?.subscribe(
+          {
+            next: (value: any) => {
+              console.log(value)
+            },
+            error: (error: any) => console.error(`Error al eliminar la Empresa: ${error}`),
+            complete: () => {
+              this.cargarListaEmpresas();
+            }
+          }
+        );
+
+
+      }
+    }
+    )
+
   }
 
   changeEmpresa(empresa: IEmpresa) {
-    console.table(empresa)
-    alert(`Modificar empreasa con ID ${empresa}`)
+    // console.table(empresa)
+    this.ModificarEmpresa = empresa;
+    this.btnAction = false;
   }
 
   obtenerProvincias(idPais: number) {
@@ -99,6 +139,7 @@ export class EmpresasComponent implements OnInit {
   }
 
   crearEmpresa(empresa: IEmpresa) {
+    let snackRef = this._snackBar.open(`Cargando...`,)
     console.table(empresa);
     this._empresaService.post(empresa)
       .subscribe(
@@ -106,13 +147,48 @@ export class EmpresasComponent implements OnInit {
           next: (valor: any) => {
             console.log(`Valor devuelto`);
           },
-          error: (error: any) => console.error(`Error de la peticion: ${error}`),
-          complete: () => console.info(`Creacion de Empresa realizada`)
+          error: (error: any) => {
+            console.error(`Error de la peticion: ${error}`);
+            snackRef.dismiss();
+            snackRef = this._snackBar.open(`Error. No se pudo crear la Empresa`, `X`, { duration: 5000 })
+          },
+          complete: () => {
+            snackRef.dismiss();
+            snackRef = this._snackBar.open(`Creacion de Empresa Exitosa!`, `X`, { duration: 5000 })
+            this.clickBtnAction(true);
+          }
         }
       )
   }
+  modificarEmpresa(empresa: IEmpresa) {
+    let snackRef = this._snackBar.open(`Cargando...`,)
+    console.table(empresa);
+    this._empresaService.put(empresa)?.subscribe(
+      {
+        next: (value: any) => {
+          console.log(value)
+        },
+        error: (error: any) => {
+          console.error(`Error al modificar la Empresa: ${error}`);
+          snackRef.dismiss();
+          snackRef = this._snackBar.open(`Error. No se pudo modificar la Empresa`, `X`, { duration: 5000 })
+        },
+        complete: () => {
+          snackRef.dismiss();
+          snackRef = this._snackBar.open(`Modificacion de Empresa Exitosa!`, `X`, { duration: 5000 })
+          this.clickBtnAction(true);
+        }
+      }
+    );
+  }
 
   clickBtnAction(value: boolean) {
+    this.ModificarEmpresa = null;
     this.btnAction = value;
+
+    this.listBarrios = null;
+    this.listLocalidades = null;
+    this.listDepartamentos = null;
+    this.listProvincias = null;
   }
 }

@@ -1,5 +1,5 @@
 <h3 class="title-empresas">Empresas</h3>
-<ng-container *ngIf="btnAction;else AgregarEmpresa">
+<ng-container *ngIf="btnAction;else DetalleEmpresa">
 
     <div class="btn-action-empresa">
         <button mat-raised-button color="primary" (click)="clickBtnAction(false)">
@@ -16,9 +16,9 @@
 </ng-container>
 
 
-<ng-template #AgregarEmpresa>
+<ng-template #DetalleEmpresa>
     <div class="btn-action-empresa">
-        <button mat-raised-button color="warn" (click)="clickBtnAction(true)">
+        <button mat-raised-button color="warn" type="button" (click)="clickBtnAction(true)">
             <mat-icon>cancel</mat-icon>
             <div>
                 Cancelar
@@ -29,6 +29,6 @@
     <app-detalle-empresa [paises]="listPaises" (selectedPais)="obtenerProvincias($event)" [provincias]="listProvincias"
         (selectedProvincia)="obtenerDepartamentos($event)" [departamentos]="listDepartamentos"
         (selectedDepartamento)="obtenerLocalidades($event)" [localidades]="listLocalidades"
-        (selectedLocalidad)="obtenerBarrios($event)" [barrios]="listBarrios"
-        (crearEmpresa)="crearEmpresa($event)"></app-detalle-empresa>
+        (selectedLocalidad)="obtenerBarrios($event)" [barrios]="listBarrios" (crearEmpresa)="crearEmpresa($event)"
+        [sourceEmpresa]="ModificarEmpresa" (empresaModificada)="modificarEmpresa($event)"></app-detalle-empresa>
 </ng-template>

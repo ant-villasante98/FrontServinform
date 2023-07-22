@@ -11,7 +11,7 @@ export class CardComponent {
   @Input() iconCard: string = '';
 
   @Output("modificar") changeEmpresa: EventEmitter<IEmpresa> = new EventEmitter<IEmpresa>;
-  @Output("eliminar") deleteEmpresa: EventEmitter<number> = new EventEmitter<number>;
+  @Output("eliminar") deleteEmpresa: EventEmitter<IEmpresa> = new EventEmitter<IEmpresa>;
 
   change() {
     if (!this.sourceCard) {
@@ -22,7 +22,11 @@ export class CardComponent {
   }
 
   delete() {
-    this.deleteEmpresa.emit(this.sourceCard?.id);
+    if (!this.sourceCard) {
+      console.error(`El souceCard el nulo!!`)
+      return
+    }
+    this.deleteEmpresa.emit(this.sourceCard);
   }
 
   add() {

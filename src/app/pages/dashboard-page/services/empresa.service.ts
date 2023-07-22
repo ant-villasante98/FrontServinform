@@ -20,4 +20,18 @@ export class EmpresaService {
 
     return this._httpClient.post(`${this.URL_API}Empresas`, empresa);
   }
+
+  put(empresa: IEmpresa) {
+    if (empresa.id == 0) {
+      return
+    }
+    return this._httpClient.put(`${this.URL_API}Empresas/${empresa.id}`, empresa)
+  }
+
+  delete(id: number) {
+    if (id == 0) {
+      return
+    }
+    return this._httpClient.delete(`${this.URL_API}Empresas/${id}`);
+  }
 }

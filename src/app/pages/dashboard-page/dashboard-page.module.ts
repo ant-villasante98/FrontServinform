@@ -28,6 +28,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UbicacionService } from './services/ubicacion.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './pages/empresas/components/dialog/dialog.component';
 
 
 @NgModule({
@@ -39,7 +42,8 @@ import { UbicacionService } from './services/ubicacion.service';
     EmpresasComponent,
     FacturasComponent,
     CardComponent,
-    DetalleEmpresaComponent
+    DetalleEmpresaComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +63,9 @@ import { UbicacionService } from './services/ubicacion.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     FacturaService,

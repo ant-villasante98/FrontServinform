@@ -1,4 +1,4 @@
-<!-- Formulario de Login -->
+<!-- Formulario de Detalle Empresa -->
 <mat-card>
     <!-- Cabecera -->
     <mat-card-header>
@@ -6,18 +6,15 @@
         <mat-card-title>
             Agregar Empresa
         </mat-card-title>
-        <!-- <mat-card-subtitle>
-            Accede a tu cuenta
-        </mat-card-subtitle> -->
     </mat-card-header>
-    <!-- Cuerpo de Login -->
+    <!-- Cuerpo de Detalle Empresa -->
     <mat-card-content>
         <form [formGroup]="formEmpresa" (submit)="submitEmpresa()">
 
             <!-- Id -->
             <mat-form-field *ngIf="sourceEmpresa">
                 <mat-label>Id</mat-label>
-                <input matInput disabled placeholder="Id" value="--">
+                <input matInput disabled placeholder="Id" [value]="sourceEmpresa.id">
                 <mat-error>Error</mat-error>
             </mat-form-field>
             <!-- Email -->
@@ -25,10 +22,6 @@
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" formControlName="emailUsuario">
                 <mat-error>Error</mat-error>
-                <!-- <mat-error *ngIf="emailUsuario?.errors?.['required'] && emailUsuario?.touched">El campo es
-                    obligatorio</mat-error>
-                <mat-error *ngIf="emailUsuario?.errors?.['email'] && emailUsuario?.touched">Ingrese correctamente un
-                    email</mat-error> -->
             </mat-form-field>
 
             <!-- Nombre de Empresa -->
@@ -36,81 +29,100 @@
                 <mat-label>Nombre</mat-label>
 
                 <input matInput placeholder="Nombre de Empresa" formControlName="nombre" type="text">
-                <mat-error>Error</mat-error>
+                <mat-error *ngIf="nombre?.errors?.['required'] && nombre?.touched">Campo Obligatorio</mat-error>
             </mat-form-field>
 
-            <!-- Pais -->
-            <mat-form-field>
-                <mat-label>
-                    Pais
-                </mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let p of listPaises" [value]="p.id"
-                        (click)="selectPais(p.id)">{{p.nombre}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <ng-container *ngIf="!sourceEmpresa || flagUbicacion; else CambiarUbicacion">
+                <!-- Pais -->
+                <mat-form-field>
+                    <mat-label>
+                        Pais
+                    </mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let p of listPaises" [value]="p.id"
+                            (click)="selectPais(p.id)">{{p.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <!-- Provincia -->
-            <mat-form-field>
-                <mat-label>
-                    Provincia
-                </mat-label>
-                <mat-select [disabled]="listProvincias==null">
-                    <mat-option *ngFor="let pr of listProvincias" [value]="pr.id"
-                        (click)="selectProvincia(pr.id)">{{pr.nombre}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <!-- Provincia -->
+                <mat-form-field>
+                    <mat-label>
+                        Provincia
+                    </mat-label>
+                    <mat-select [disabled]="listProvincias==null">
+                        <mat-option *ngFor="let pr of listProvincias" [value]="pr.id"
+                            (click)="selectProvincia(pr.id)">{{pr.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <!-- Departamento -->
-            <mat-form-field>
-                <mat-label>
-                    Departamento
-                </mat-label>
-                <mat-select [disabled]="listDepartamentos==null">
-                    <mat-option *ngFor="let d of listDepartamentos" [value]="d.id"
-                        (click)="selectDepartamento(d.id)">{{d.nombre}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <!-- Departamento -->
+                <mat-form-field>
+                    <mat-label>
+                        Departamento
+                    </mat-label>
+                    <mat-select [disabled]="listDepartamentos==null">
+                        <mat-option *ngFor="let d of listDepartamentos" [value]="d.id"
+                            (click)="selectDepartamento(d.id)">{{d.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <!-- Localidad -->
-            <mat-form-field>
-                <mat-label>
-                    Localidad
-                </mat-label>
-                <mat-select [disabled]="listLocalidades==null">
-                    <mat-option *ngFor="let lo of listLocalidades" [value]="lo.id"
-                        (click)="selectLocalidad(lo.id)">{{lo.nombre}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <!-- Localidad -->
+                <mat-form-field>
+                    <mat-label>
+                        Localidad
+                    </mat-label>
+                    <mat-select [disabled]="listLocalidades==null">
+                        <mat-option *ngFor="let lo of listLocalidades" [value]="lo.id"
+                            (click)="selectLocalidad(lo.id)">{{lo.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <!-- Barrio -->
-            <mat-form-field>
-                <mat-label>
-                    Barrio
-                </mat-label>
-                <mat-select formControlName="idBarrio">
-                    <mat-option *ngFor="let b of listBarrios" [value]="b.id">{{b.nombre}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <!-- Barrio -->
+                <mat-form-field>
+                    <mat-label>
+                        Barrio
+                    </mat-label>
+                    <mat-select formControlName="idBarrio">
+                        <mat-option *ngFor="let b of listBarrios" [value]="b.id">{{b.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <ng-template #CambiarUbicacion>
+                <div class="container-location">
+                    <label>Barrio: {{sourceEmpresa?.nombreBarrio}}</label><button mat-flat-button color="accent"
+                        type="button" (click)="modificarUbicacion()">Cambiar
+                        Ubicacion</button>
+                </div>
+            </ng-template>
 
             <!-- Calle -->
             <mat-form-field>
                 <mat-label>Calle</mat-label>
                 <input matInput placeholder="Nombre de calle" formControlName="calle" type="text">
-                <mat-error>Error</mat-error>
+                <mat-error *ngIf="calle?.errors?.['required'] && calle?.touched">Campo Obligatorio</mat-error>
+
             </mat-form-field>
 
             <!-- NroCalle -->
             <mat-form-field>
                 <mat-label>Nro Calle</mat-label>
                 <input matInput placeholder="Nro Calle" formControlName="nroCalle" type="number">
-                <mat-error>Error</mat-error>
+                <mat-error *ngIf="nroCalle?.errors?.['required'] && nroCalle?.touched">Campo Obligatorio</mat-error>
+
             </mat-form-field>
 
             <!-- Boton para hacer submit del formulario -->
             <!-- Se deshabilita -->
-            <button mat-raised-button color="primary" type="submit" [disabled]="formEmpresa.invalid"> Crear Empresa
-            </button>
+            <ng-container *ngIf="sourceEmpresa; else btnModificarEmpresa">
+                <button mat-raised-button color="primary" type="button" (click)="modificarEmpressa()"
+                    [disabled]="formEmpresa.invalid">Guardar
+                    Cambios</button>
+            </ng-container>
+            <ng-template #btnModificarEmpresa>
+                <button mat-raised-button color="primary" type="submit" [disabled]="formEmpresa.invalid"> Crear Empresa
+                </button>
+            </ng-template>
 
         </form>
     </mat-card-content>

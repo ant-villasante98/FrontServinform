@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
   @Output() loginAction: EventEmitter<{ userEmail: string, password: string }> = new EventEmitter<{ userEmail: string, password: string }>();
 
   formLogin: FormGroup = new FormGroup({})
+
+  @Input() flagsubmit!: boolean;
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -31,9 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    if (this.formLogin.valid) {
+    console.log(this.flagsubmit);
+    if (this.formLogin.valid && this.flagsubmit) {
       console.log('Valores del Formulario emitidos');
-
       this.loginAction.emit(this.formLogin.value)
     }
 
