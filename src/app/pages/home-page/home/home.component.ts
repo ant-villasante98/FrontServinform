@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.removeItem("tokenServinform");
+    localStorage.removeItem("tokenServinform");
     this._state.stateSesion = false;
   }
 

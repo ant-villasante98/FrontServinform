@@ -7,7 +7,7 @@ import { StateService } from "../services/state.service";
 export function VerifyTokenGuard(path?: string): CanActivateFn {
     return () => {
         let userToken: any;
-        if (sessionStorage.getItem("tokenServinform") == null) {
+        if (localStorage.getItem("tokenServinform") == null) {
             console.log("No se pudo obtene el token")
             return inject(Router).createUrlTree(["/auth/login"]);
         }
@@ -20,7 +20,7 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
                 catchError((err) => {
                     console.error(`Error en le verificacion del token `)
                     console.table(err.error)
-                    sessionStorage.removeItem("tokenServinform");
+                    localStorage.removeItem("tokenServinform");
                     console.info(err.error)
                     return of({ sucess: false })
                 }),
@@ -31,7 +31,7 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
                     }
 
                     userToken = value.token;
-                    sessionStorage.setItem("tokenServinform", userToken.token)
+                    localStorage.setItem("tokenServinform", userToken.token)
                     stateSesion.stateSesion = true;
 
                     stateSesion.userEmail = userToken?.userEmail || "";
@@ -52,7 +52,7 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
 
 export function VerifySession(): CanActivateFn {
     return () => {
-        if (sessionStorage.getItem("tokenServinform")) {
+        if (localStorage.getItem("tokenServinform")) {
             return inject(Router).createUrlTree(["/dashboard"])
         }
         return true;

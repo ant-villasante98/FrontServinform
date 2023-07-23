@@ -12,16 +12,16 @@ export class AppComponent implements OnInit {
   constructor(private _state: StateService) { }
   ngOnInit(): void {
 
-    this._state.stateSesion = sessionStorage.getItem("tokenServinform") != null;
+    this._state.stateSesion = localStorage.getItem("tokenServinform") != null;
     console.log(this._state.stateSesion)
-    //sessionStorage.setItem("tokenServinform", "hola")// Borrar esta linea
+    //localStorage.setItem("tokenServinform", "hola")// Borrar esta linea
 
 
   }
 
 
   // verificarToken() {
-  //   if (sessionStorage.getItem("tokenServinform") == null) {
+  //   if (localStorage.getItem("tokenServinform") == null) {
   //     console.log("----No se inicio sesion")
   //   }
   //   console.info(`El Token si existe`)

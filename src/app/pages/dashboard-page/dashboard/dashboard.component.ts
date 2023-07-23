@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
 
   logout() {
 
-    // Borramos el token del sessionStorage
-    sessionStorage.removeItem("tokenServinform");
+    // Borramos el token del localStorage
+    localStorage.removeItem("tokenServinform");
     // Guardamos el estado
     this._state.stateSesion = false;
     // Navegamos a la pagina home

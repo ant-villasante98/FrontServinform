@@ -30,7 +30,7 @@ export class AuthService {
 
   verifyToken() {
 
-    if (sessionStorage.getItem("tokenServinform") == null) {
+    if (localStorage.getItem("tokenServinform") == null) {
       console.log("No se pudo obtener el token")
       // return of({ sucess: false })
     }

@@ -34,6 +34,7 @@ export class LoginPageComponent implements OnInit {
           if (valor.token) {
             // Guardamos el token como "tokenServinform"
             sessionStorage.setItem('tokenServinform', valor.token);
+            localStorage.setItem('tokenServinform', valor.token)
             // console.table(valor); 
 
             // Guardamos el estado

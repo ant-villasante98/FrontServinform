@@ -14,7 +14,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const token = sessionStorage.getItem("tokenServinform");
+    const token = localStorage.getItem("tokenServinform");
     let req: HttpRequest<unknown> = request;
 
     if (token) {
