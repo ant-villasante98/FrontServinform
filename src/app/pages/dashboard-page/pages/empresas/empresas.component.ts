@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, ɵpatchComponentDefWithScope } from '@angular/core';
 import { EmpresaService } from '../../services/empresa.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { StateService } from 'src/app/services/state.service';
 import { IEmpresa } from 'src/app/models/empresa.interface';
 import { UbicacionService } from '../../services/ubicacion.service';
@@ -18,6 +18,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./empresas.component.scss']
 })
 export class EmpresasComponent implements OnInit {
+  limitPage: number = 4;
+  currentPage: number = 1;
+  totalItems: number = 0;
 
   btnAction: boolean = true;
 
@@ -55,7 +58,34 @@ export class EmpresasComponent implements OnInit {
 
 
   cargarListaEmpresas() {
-    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail);
+    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail, this.limitPage, this.currentPage)
+      .pipe(
+        map(({ data, paginator }: any) => {
+
+          console.table(paginator)
+          // this.limitPage = paginator.currentPage
+          this.totalItems = paginator.items.total;
+
+          return data;
+        })
+      );
+  }
+
+  clickPage(eventPage: any) {
+    console.table(eventPage);
+    this.currentPage = eventPage.pageIndex + 1;
+    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail, this.limitPage, this.currentPage)
+      .pipe(
+        map(({ data, paginator }: any) => {
+
+          console.table(paginator)
+          // this.limitPage = paginator.currentPage
+          this.totalItems = paginator.items.total;
+
+          return data;
+        })
+      );
+
   }
 
   deleteEmpresa(empresa: IEmpresa) {

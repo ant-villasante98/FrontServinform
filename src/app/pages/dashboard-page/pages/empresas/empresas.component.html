@@ -13,6 +13,8 @@
         <app-card (modificar)="changeEmpresa($event)" (eliminar)="deleteEmpresa($event)"
             *ngFor="let element of listEmpresas$|async" [sourceCard]="element"></app-card>
     </div>
+    <mat-paginator [length]="totalItems" [pageIndex]="currentPage-1" (page)="clickPage($event)" [pageSize]="limitPage">
+    </mat-paginator>
 </ng-container>
 
 

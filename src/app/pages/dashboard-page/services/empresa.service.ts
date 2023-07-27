@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IEmpresa } from 'src/app/models/empresa.interface';
 import { EnvService } from 'src/app/services/env.service';
 
@@ -12,8 +13,16 @@ export class EmpresaService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  empresasPorUsuario(email: string) {
-    return this._httpClient.get(`${this.URL_API}Empresas/PorUsuario/${email}`)
+  empresasPorUsuario(email: string, limit?: number, page?: number): Observable<any> {
+    let params: HttpParams = new HttpParams();
+    if (limit) {
+      params = params.append('limit', limit);
+    }
+    if (page) {
+      params = params.append('page', page);
+    }
+    console.log(`Consiguiendo Empresas por id`);
+    return this._httpClient.get(`${this.URL_API}Empresas/PorUsuario/${email}`, { params })
   }
 
   post(empresa: IEmpresa) {

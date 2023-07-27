@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { StateService } from 'src/app/services/state.service';
 import { FacturaService } from '../../services/factura.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IFactura } from 'src/app/models/factura.interface';
 
 @Component({
@@ -25,7 +25,13 @@ export class HomeComponent implements OnInit {
     console.log(this.userEmail);
     console.log(this.userName);
 
-    this.facturasRecientes$ = this._facturaService.FacturasPorUsuario(this.userEmail)
+    this.facturasRecientes$ = this._facturaService.FacturasPorUsuario(this.userEmail, 5)
+      .pipe(
+        map((value) => {
+          console.table(value.paginator)
+          return value.data;
+        })
+      );
     // .subscribe(
     //   {
     //     next: (value: any) => { console.table(value) }

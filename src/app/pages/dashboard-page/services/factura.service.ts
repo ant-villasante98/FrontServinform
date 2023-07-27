@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EnvService } from 'src/app/services/env.service';
@@ -12,8 +12,15 @@ export class FacturaService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  FacturasPorUsuario(id: string): Observable<any> {
+  FacturasPorUsuario(id: string, limit?: number, page?: number): Observable<any> {
+    let params: HttpParams = new HttpParams();
+    if (limit) {
+      params = params.append('limit', limit);
+    }
+    if (page) {
+      params = params.append('page', page);
+    }
     console.log(`Consiguiendo facturas por id`);
-    return this._httpClient.get(`${this.URL_API}Facturas/PorUsuario/${id}`);
+    return this._httpClient.get(`${this.URL_API}Facturas/PorUsuario/${id}`, { params });
   }
 }
