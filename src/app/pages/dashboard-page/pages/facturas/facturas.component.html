@@ -1,6 +1,22 @@
 <h3 class="title-facturas">Facturas</h3>
+
+<div>
+    <button type="button" (click)="filtrarEmpresa(null)">Ninguno</button>
+    <button type="button" *ngFor="let empresa of listEmpresas$|async" (click)="filtrarEmpresa(empresa.id)">
+        {{empresa.nombre}}
+    </button>
+</div>
+<div>
+    <button type="button" (click)="ordenarFacturas('asc')">Ascendente</button>
+    <button type="button" (click)="ordenarFacturas('desc')">Descendete</button>
+</div>
 <div>
     <p class="table-title">Lista de Facturas Recientes</p>
 
-    <app-table [sourceTable]="facturasRecientes$"></app-table>
+    <app-table [sourceTable]="listFacturas$"></app-table>
+
+    <mat-paginator [length]="totalItems" [pageIndex]="queryParams.page-1" (page)="clickPage($event)"
+        [pageSize]="limitPage">
+    </mat-paginator>
+    <!-- <p>{{listFacturas$|async|json}}</p> -->
 </div>

@@ -31,11 +31,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent {
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
   // @ViewChild(MatSort) sort!: MatSort;
   // @ViewChild(MatTable) table!: MatTable<PeriodicElement>;
-  @ViewChild(MatTable) table!: MatTable<IFactura>;
+  // @ViewChild(MatTable) table!: MatTable<IFactura | Observable<any>>;
 
   // dataSource: TableDataSource;
   dataSource = ELEMENT_DATA;
@@ -50,19 +50,5 @@ export class TableComponent implements AfterViewInit {
     // this.dataSource = new TableDataSource();
   }
 
-  ngAfterViewInit(): void {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
-    this.sourceTable?.subscribe(
-      {
-        next: (value: IFactura[]) => {
-          this.table.dataSource = value
-        },
-        error: (error) => console.error(`Ocurrio en error: ${error}`),
-        complete: () => console.info(`Peticion de las facturas se realizo`)
-      }
-    )
 
-  }
 }
