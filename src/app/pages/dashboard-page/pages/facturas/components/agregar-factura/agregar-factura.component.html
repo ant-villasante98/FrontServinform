@@ -1,0 +1,51 @@
+<!-- Formulario de Agregar Factura -->
+<mat-card>
+    <!-- Cabecera -->
+    <mat-card-header>
+
+        <mat-card-title>
+            Agregar Factura
+        </mat-card-title>
+        <mat-card-subtitle>
+            Accede a tu cuenta
+        </mat-card-subtitle>
+    </mat-card-header>
+    <!-- Cuerpo de Agregar Factura -->
+    <mat-card-content>
+        <form [formGroup]="formFactura" (submit)="submitFactura()">
+
+            <!-- Id Empresa -->
+            <mat-form-field>
+                <mat-label>
+                    Empresa
+                </mat-label>
+                <mat-select formControlName="idEmpresa">
+                    <mat-option *ngFor="let emp of listEmpresas$|async" [value]="emp.id"
+                        (click)="cargarArticulos(emp.id)">
+                        {{emp.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <span *ngIf="idEmpresa?.errors" style="color: red;margin-left: 1rem;">Selecionar una empresa</span>
+
+            <!-- Lista de articulos -->
+            <!-- <div>
+                <button type="button" *ngFor="let art of listArticulo$|async"
+                    (click)="agregarArticulo(art)">{{art.nombre}}</button>
+            </div> -->
+            <app-table-lineas-factura [sourceTable]="listLineasFacturas.value"></app-table-lineas-factura>
+            <div>
+                <button mat-raised-button type="button" (click)="agregarArticulo()">Agregar Articulo</button>
+            </div>
+
+            <mat-form-field>
+                <mat-label>Precio Total</mat-label>
+                <input matInput [value]="precioTotal?.value" type="number" readonly="readonly">
+            </mat-form-field>
+
+            <!-- Boton para hacer submit del formulario -->
+            <!-- Se deshabilita -->
+            <button mat-raised-button color="primary" type="submit">Crear Factura</button>
+        </form>
+    </mat-card-content>
+</mat-card>

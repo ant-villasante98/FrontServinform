@@ -1,9 +1,11 @@
+import { ILineasFactura } from "./lineas-factura.interface";
+
 export interface IFactura {
     nroFactura: number;
-    fechaHora: Date;
+    fechaHora: string;
     idEmpresa: number;
     nombreEmpresa: string;
     precioTotal: number
-    lineasFacturas: any[]
+    lineasFacturas: ILineasFactura[]
 
 }

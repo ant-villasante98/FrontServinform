@@ -6,3 +6,27 @@
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
+.btn-action-factura {
+  margin: 0 2rem 1rem auto;
+  width: max-content;
+}
+.btn-action-factura button {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.btn-action-factura mat-icon {
+  font-size: 2rem;
+  width: auto;
+  height: auto;
+}
+.btn-action-factura div {
+  width: min-content;
+}
+button {
+  z-index: 0;
+}
+.table-title {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 2rem;
+}

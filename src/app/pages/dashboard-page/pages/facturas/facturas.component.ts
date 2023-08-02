@@ -3,7 +3,7 @@ import { Observable, map, switchMap } from 'rxjs';
 import { IFactura } from 'src/app/models/factura.interface';
 import { StateService } from 'src/app/services/state.service';
 import { FacturaService } from '../../services/factura.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IEmpresa } from 'src/app/models/empresa.interface';
 import { QueryParam } from 'src/app/models/queryParam.interface';
 import { EmpresaService } from '../../services/empresa.service';
@@ -15,14 +15,11 @@ import { EmpresaService } from '../../services/empresa.service';
 })
 export class FacturasComponent implements OnInit {
   totalItems: number = 0;
-  currentPage: number = 1;
   limitPage: number = 3;
+  lastPage: number = 1;
   orderBy: string | null = "asc";
   queryParams: QueryParam = {
     page: 1,
-    orderBy: null,
-    sort: null,
-    empresa: null
   }
 
   session = inject(StateService)
@@ -30,6 +27,8 @@ export class FacturasComponent implements OnInit {
   userName: string = "";
   listFacturas$: Observable<IFactura[]> | null = null;
   listEmpresas$: Observable<IEmpresa[]> | null = null;
+
+  btnAction: boolean = false;
 
   constructor(
     private _facturaService: FacturaService,
@@ -45,27 +44,24 @@ export class FacturasComponent implements OnInit {
     console.log(this.userName);
 
     // Corregir el Limite de cantidad de empresas
-    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail, 10)
+    this.listEmpresas$ = this._empresaService.empresasPorUsuario(this.userEmail, 0)
       .pipe(
-        map(({ data, paginator }: any) => {
-
+        map(({ data }: any) => {
           return data;
         })
       );
 
+    console.log(this.route.snapshot.queryParams)
+    let snapshotQP = this.route.snapshot.queryParams;
+    this.queryParams.page = Number(snapshotQP['page']) || 1;
+    this.queryParams.empresa = Number(snapshotQP['empresa']) || null;
+    this.queryParams.orderBy = snapshotQP['orderBy'];
+    this.queryParams.sort = snapshotQP['sort'];
+
     this.listFacturas$ = this.route.queryParamMap
       .pipe(
-        switchMap((qp: ParamMap) => {
+        switchMap(() => {
           console.log(`ActivedRoute`);
-          this.queryParams.page = Number(qp.get('page'));
-          this.queryParams.orderBy = qp.get('orderBy');
-          this.queryParams.sort = qp.get('sort');
-
-          // let idEmpresa = qp.get('empresa');
-          // if (idEmpresa) {
-          //   this.queryParams.empresa = Number(idEmpresa);
-
-          // }
 
           return this.cargarLista();
         })
@@ -74,13 +70,14 @@ export class FacturasComponent implements OnInit {
   }
 
   cargarLista() {
-    return this._facturaService.FacturasPorUsuario(this.userEmail, this.limitPage, this.queryParams.page, this.queryParams.sort || undefined)
+    return this._facturaService.FacturasPorUsuario(this.userEmail, this.limitPage, this.queryParams.page, this.queryParams.sort || undefined, this.queryParams.orderBy || undefined, this.queryParams.empresa || undefined)
       .pipe(
         map(({ data, paginator }: any) => {
 
           console.table(paginator)
           // this.limitPage = paginator.currentPage
           this.totalItems = paginator.items.total;
+          this.lastPage = paginator.lastPage;
           console.table(this.queryParams)
 
           return data;
@@ -90,8 +87,6 @@ export class FacturasComponent implements OnInit {
 
   clickPage(eventPage: any) {
     console.table(eventPage);
-    // this.currentPage = eventPage.pageIndex + 1;
-    //Provando con el objeto queryParam
     this.queryParams.page = eventPage.pageIndex + 1;
     console.table(this.queryParams)
 
@@ -100,8 +95,7 @@ export class FacturasComponent implements OnInit {
   }
 
   filtrarEmpresa(idEmpresa: number | null) {
-    this.queryParams.empresa = idEmpresa;
-    this.queryParams.page = 1;
+    this.queryParams = { page: 1, empresa: idEmpresa }
     this.router.navigate([], { queryParams: this.queryParams })
   }
 
@@ -109,5 +103,9 @@ export class FacturasComponent implements OnInit {
     this.queryParams.sort = filtro
     this.queryParams.page = 1;
     this.router.navigate([], { queryParams: this.queryParams })
+  }
+
+  clickBtnAction(value: boolean) {
+    this.btnAction = value;
   }
 }

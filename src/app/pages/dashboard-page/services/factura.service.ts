@@ -12,7 +12,7 @@ export class FacturaService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  FacturasPorUsuario(id: string, limit?: number, page?: number, sort?: string, orderBy?: string): Observable<any> {
+  FacturasPorUsuario(id: string, limit?: number, page?: number, sort?: string, orderBy?: string, empresa?: number): Observable<any> {
     let params: HttpParams = new HttpParams();
     if (limit) {
       params = params.append('limit', limit);
@@ -25,6 +25,9 @@ export class FacturaService {
     }
     if (orderBy) {
       params = params.append('orderBy', orderBy);
+    }
+    if (empresa) {
+      params = params.append('empresa', empresa);
     }
     console.log(`Consiguiendo facturas por id`);
     return this._httpClient.get(`${this.URL_API}Facturas/PorUsuario/${id}`, { params });

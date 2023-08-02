@@ -3,16 +3,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { TableLineasFacturaComponent } from './table-lineas-factura.component';
 
-import { TableComponent } from './table.component';
-
-describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('TableLineasFacturaComponent', () => {
+  let component: TableLineasFacturaComponent;
+  let fixture: ComponentFixture<TableLineasFacturaComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableComponent ],
+      declarations: [TableLineasFacturaComponent],
       imports: [
         NoopAnimationsModule,
         MatPaginatorModule,
@@ -23,7 +22,7 @@ describe('TableComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(TableLineasFacturaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

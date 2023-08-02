@@ -1,22 +1,43 @@
 <h3 class="title-facturas">Facturas</h3>
+<ng-container *ngIf="btnAction; else AgregarFactura">
+    <div class="btn-action-factura">
+        <button mat-raised-button color="primary" (click)="clickBtnAction(false)">
+            <mat-icon>add_box</mat-icon>
+            <div>
+                Agregar Factura
+            </div>
+        </button>
+    </div>
+    <div>
+        <button type="button" (click)="filtrarEmpresa(null)">Ninguno</button>
+        <button type="button" *ngFor="let empresa of listEmpresas$|async" (click)="filtrarEmpresa(empresa.id)">
+            {{empresa.nombre}}
+        </button>
+    </div>
+    <div>
+        <button type="button" (click)="ordenarFacturas('asc')">Ascendente</button>
+        <button type="button" (click)="ordenarFacturas('desc')">Descendete</button>
+    </div>
+    <div>
+        <p class="table-title">Lista de Facturas Recientes</p>
 
-<div>
-    <button type="button" (click)="filtrarEmpresa(null)">Ninguno</button>
-    <button type="button" *ngFor="let empresa of listEmpresas$|async" (click)="filtrarEmpresa(empresa.id)">
-        {{empresa.nombre}}
-    </button>
-</div>
-<div>
-    <button type="button" (click)="ordenarFacturas('asc')">Ascendente</button>
-    <button type="button" (click)="ordenarFacturas('desc')">Descendete</button>
-</div>
-<div>
-    <p class="table-title">Lista de Facturas Recientes</p>
+        <app-table-factura [sourceTable]="listFacturas$"></app-table-factura>
 
-    <app-table [sourceTable]="listFacturas$"></app-table>
+        <mat-paginator [length]="totalItems" [pageIndex]="queryParams.page-1" (page)="clickPage($event)"
+            [pageSize]="limitPage">
+        </mat-paginator>
+        <!-- <p>{{listFacturas$|async|json}}</p> -->
+    </div>
 
-    <mat-paginator [length]="totalItems" [pageIndex]="queryParams.page-1" (page)="clickPage($event)"
-        [pageSize]="limitPage">
-    </mat-paginator>
-    <!-- <p>{{listFacturas$|async|json}}</p> -->
-</div>
+</ng-container>
+<ng-template #AgregarFactura>
+    <div class="btn-action-factura">
+        <button mat-raised-button color="warn" (click)="clickBtnAction(true)">
+            <mat-icon>cancel</mat-icon>
+            <div>
+                Cancelar
+            </div>
+        </button>
+    </div>
+    <app-agregar-factura></app-agregar-factura>
+</ng-template>

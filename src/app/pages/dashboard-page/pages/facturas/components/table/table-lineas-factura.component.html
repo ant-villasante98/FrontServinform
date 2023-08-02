@@ -1,0 +1,35 @@
+<div class="container-table" *ngIf="sourceTable">
+
+  <table mat-table class="mat-elevation-z8" [dataSource]="sourceTable">
+
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Nro Column -->
+    <ng-container matColumnDef="cod">
+      <th mat-header-cell *matHeaderCellDef> Cod </th>
+      <td mat-cell *matCellDef="let element"> {{element.codArticulo}} </td>
+    </ng-container>
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.articuloNombre}} </td>
+    </ng-container>
+
+    <!-- Fecha Column -->
+    <ng-container matColumnDef="precioUnidad">
+      <th mat-header-cell *matHeaderCellDef> PrecioUnitario </th>
+      <td mat-cell *matCellDef="let element"> {{element.precioUnidad|currency:"AR $"}} </td>
+    </ng-container>
+
+    <!-- Precio Total Column -->
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

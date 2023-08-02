@@ -13,7 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './pages/home/home.component';
 import { FacturaService } from './services/factura.service';
 import { HttpClientModule } from '@angular/common/http';
-import { TableComponent } from './components/table/table.component';
+import { TableFacturaComponent } from './components/table/table-factura.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -31,6 +31,9 @@ import { UbicacionService } from './services/ubicacion.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './pages/empresas/components/dialog/dialog.component';
+import { AgregarFacturaComponent } from './pages/facturas/components/agregar-factura/agregar-factura.component';
+import { TableLineasFacturaComponent } from './pages/facturas/components/table/table-lineas-factura.component';
+import { DialogAgregarArticuloComponent } from './pages/facturas/components/dialog-agregar-articulo/dialog-agregar-articulo.component';
 
 
 @NgModule({
@@ -38,12 +41,15 @@ import { DialogComponent } from './pages/empresas/components/dialog/dialog.compo
     DashboardComponent,
     NavComponent,
     HomeComponent,
-    TableComponent,
+    TableFacturaComponent,
     EmpresasComponent,
     FacturasComponent,
     CardComponent,
     DetalleEmpresaComponent,
-    DialogComponent
+    DialogComponent,
+    AgregarFacturaComponent,
+    TableLineasFacturaComponent,
+    DialogAgregarArticuloComponent
   ],
   imports: [
     CommonModule,
