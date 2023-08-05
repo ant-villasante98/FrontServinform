@@ -20,14 +20,15 @@ export class RegisterPageComponent {
   ) { }
 
   registerUser(user: IUser) {
+    console.log(`Funcion registrar....`);
     this.statusRegister = false;
     let snack = this._snackBar.open(`Cargando...`);
     this._authService.register(user).subscribe(
       {
         next: (valor: any) => {
-          // console.table(valor);
-          this.usuarioCreado = valor;
           console.info(`---Usuario Creado`);
+          this.usuarioCreado = valor;
+          console.table(valor);
           // Una vez creada la cuenta, se dirige al pagina de login
           this.router.navigate(['/auth/login'])
         },

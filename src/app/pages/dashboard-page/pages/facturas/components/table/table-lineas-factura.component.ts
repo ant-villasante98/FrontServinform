@@ -14,7 +14,7 @@ import { ILineasFactura } from 'src/app/models/lineas-factura.interface';
 export class TableLineasFacturaComponent {
   @Input() sourceTable!: Observable<ILineasFactura[]> | null;
 
-  displayedColumns: string[] = ['cod', 'nombre', 'precioUnidad', 'cantidad'];
+  displayedColumns: string[] = ['cod', 'nombre', 'precioUnidad', 'cantidad', 'action'];
 
   constructor() {
     // this.dataSource = new TableDataSource();

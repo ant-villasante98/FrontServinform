@@ -29,6 +29,7 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
                         console.log(`El token no es valido ${value}`)
                         return router.createUrlTree(["/auth", "login"]);
                     }
+                    console.table(value);
 
                     userToken = value.token;
                     localStorage.setItem("tokenServinform", userToken.token)
@@ -45,8 +46,6 @@ export function VerifyTokenGuard(path?: string): CanActivateFn {
                     return true;
                 })
             )
-
-
     }
 }
 

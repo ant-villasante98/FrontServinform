@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -30,15 +30,21 @@ export class LoginPageComponent implements OnInit {
     let snack = this._snackBar.open(`Cargando...`)
     this._authService.login(user)
       .subscribe({
-        next: (valor: any) => {
-          if (valor.token) {
+        next: (value: any) => {
+          if (value.token) {
             // Guardamos el token como "tokenServinform"
-            sessionStorage.setItem('tokenServinform', valor.token);
-            localStorage.setItem('tokenServinform', valor.token)
-            // console.table(valor); 
+            // sessionStorage.setItem('tokenServinform', value.token);
+            localStorage.setItem('tokenServinform', value.token)
+            // console.table(value); 
 
             // Guardamos el estado
             this._state.stateSesion = true;
+            console.table(value)
+
+            // TODO: prueba
+            // this._state.stateSesion = true;
+            // this._state.userEmail = value?.userEmail || "";
+            // this._state.userName = value?.userName || "";
 
             this.router.navigate(["/dashboard"])
 

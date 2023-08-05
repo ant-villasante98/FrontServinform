@@ -16,10 +16,11 @@ export class RegisterComponent implements OnInit {
 
   formRegister: FormGroup = new FormGroup({})
 
-  @Input() flagSubmit!: boolean;
+  @Input() flagSubmit: boolean = true;
 
   constructor(private _formBuilder: FormBuilder) { }
   ngOnInit(): void {
+    console.log(this.flagSubmit);
     this.formRegister = this._formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])([A-Za-z\\d$@$!%*?&#]|[^ ]){8,30}$")])],
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
   get apellido() { return this.formRegister.get('apellido'); }
 
   submitRegister() {
+
     if (this.formRegister.valid && this.flagSubmit) {
 
       console.log('Accion de registrar')

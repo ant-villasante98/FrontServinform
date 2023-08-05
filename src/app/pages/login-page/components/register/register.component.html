@@ -48,7 +48,7 @@
             <!-- Boton para Cancelar -->
             <button class="btn" mat-raised-button color="warn" type="button" routerLink="/auth/login">Cancelar</button>
             <!-- Boton para Registrarse -->
-            <button class="btn" mat-raised-button color="primary" type="submit" [disabled]="formRegister.invalid"
+            <button class="btn" mat-raised-button color="primary" [disabled]="formRegister.invalid || !flagSubmit"
                 type="submit">Registrar</button>
             <p>{{password?.errors|json}}</p>
         </form>

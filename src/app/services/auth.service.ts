@@ -15,8 +15,6 @@ export class AuthService {
   constructor(private _http: HttpClient) { }
 
   login(userLogin: { userEmail: string, password: string }) {
-    // userLogin.userEmail = 'raul@email.com';
-    // userLogin.password = 'raul';
     let body = userLogin;
 
     return this._http.post(`${this.URL_API}Account/Login`, body);
