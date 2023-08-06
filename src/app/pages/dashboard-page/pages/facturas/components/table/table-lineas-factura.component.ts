@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { EmailValidator } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -12,7 +13,9 @@ import { ILineasFactura } from 'src/app/models/lineas-factura.interface';
   styleUrls: ['./table-lineas-factura.component.scss']
 })
 export class TableLineasFacturaComponent {
-  @Input() sourceTable!: Observable<ILineasFactura[]> | null;
+  @Input() sourceTable!: ILineasFactura[] | null;
+
+  @Output() emitterDelete: EventEmitter<number> = new EventEmitter<number>();
 
   displayedColumns: string[] = ['cod', 'nombre', 'precioUnidad', 'cantidad', 'action'];
 
@@ -20,5 +23,8 @@ export class TableLineasFacturaComponent {
     // this.dataSource = new TableDataSource();
   }
 
+  clickDelete(index: number) {
+    this.emitterDelete.emit(index);
+  }
 
 }

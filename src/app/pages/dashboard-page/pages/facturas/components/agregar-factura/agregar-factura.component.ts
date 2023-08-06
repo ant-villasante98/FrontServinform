@@ -56,7 +56,19 @@ export class AgregarFacturaComponent implements OnInit {
     return this.formFactura.get('lineasFacturas') as FormArray
   }
 
+  public get idEmpresa() {
+    return this.formFactura.get('idEmpresa')
+  }
+
+  public get precioTotal() {
+    return this.formFactura.get('precioTotal')
+  }
+  public get nombreEmpresa() {
+    return this.formFactura.get('nombreEmpresa')
+  }
+
   public agregarArticulo() {
+
     const dialogRef = this.dialogArticulo.open(DialogAgregarArticuloComponent, {
       data: this.listArticulo
     });
@@ -100,7 +112,11 @@ export class AgregarFacturaComponent implements OnInit {
 
   }
 
+  public selectEmpresa(nombre: string) {
+    this.formFactura.patchValue({ nombreEmpresa: nombre });
+  }
   public cargarArticulos(idEmpresa: number) {
+
     this._articuloService.articulosPorEmpresa(idEmpresa)
       .pipe(
         map((value: any) => {
@@ -116,14 +132,13 @@ export class AgregarFacturaComponent implements OnInit {
       });
   }
 
-  public get idEmpresa() {
-    return this.formFactura.get('idEmpresa')
-  }
 
-  public get precioTotal() {
-    return this.formFactura.get('precioTotal')
-  }
+  deleteLF(index: number) {
+    console.log(index);
+    this.listLineasFacturas.removeAt(index);
+    this.calcularTotal();
 
+  }
 
 
   submitFactura() {
