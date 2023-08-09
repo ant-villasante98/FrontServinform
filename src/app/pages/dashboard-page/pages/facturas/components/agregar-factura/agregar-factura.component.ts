@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, map } from 'rxjs';
@@ -22,10 +22,10 @@ export class AgregarFacturaComponent implements OnInit {
 
   formFactura: FormGroup = new FormGroup({});
 
-
-
   listEmpresas$: Observable<IEmpresa[]> | null = null;
   listArticulo: IArticulo[] | null = [];
+
+  @Output() emitterFactura: EventEmitter<IFactura> = new EventEmitter<IFactura>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,13 +81,25 @@ export class AgregarFacturaComponent implements OnInit {
         }
         const { articulo, cantidad } = result;
         const { codigo, nombre, precioUnidad } = articulo;
-        const elementoLF = this.formBuilder.group({
-          codArticulo: codigo,
-          articuloNombre: nombre,
-          precioUnidad: precioUnidad,
-          cantidad: cantidad
-        })
-        this.listLineasFacturas.push(elementoLF)
+
+        let list: ILineasFactura[] = this.listLineasFacturas.value;
+        let index = list.findIndex(e => e.codArticulo == codigo);
+        if (index != -1) {
+          this.listLineasFacturas.at(index).patchValue({ cantidad: (cantidad + list[index].cantidad) });
+
+        }
+        else {
+
+          const elementoLF = this.formBuilder.group({
+            codArticulo: codigo,
+            articuloNombre: nombre,
+            precioUnidad: precioUnidad,
+            cantidad: cantidad
+          })
+
+          this.listLineasFacturas.push(elementoLF);
+        }
+
         this.calcularTotal();
 
       },
@@ -149,5 +161,9 @@ export class AgregarFacturaComponent implements OnInit {
     console.log(`Emitir factura:`)
     console.table(factura)
     console.log(factura.lineasFacturas)
+
+    if (this.formFactura.valid) {
+      this.emitterFactura.emit(factura)
+    }
   }
 }

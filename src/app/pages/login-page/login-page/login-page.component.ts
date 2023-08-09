@@ -33,7 +33,6 @@ export class LoginPageComponent implements OnInit {
         next: (value: any) => {
           if (value.token) {
             // Guardamos el token como "tokenServinform"
-            // sessionStorage.setItem('tokenServinform', value.token);
             localStorage.setItem('tokenServinform', value.token)
             // console.table(value); 
 

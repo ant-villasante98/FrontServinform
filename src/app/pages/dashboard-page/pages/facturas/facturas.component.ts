@@ -75,7 +75,6 @@ export class FacturasComponent implements OnInit {
         map(({ data, paginator }: any) => {
 
           console.table(paginator)
-          // this.limitPage = paginator.currentPage
           this.totalItems = paginator.items.total;
           this.lastPage = paginator.lastPage;
           console.table(this.queryParams)
@@ -107,5 +106,22 @@ export class FacturasComponent implements OnInit {
 
   clickBtnAction(value: boolean) {
     this.btnAction = value;
+  }
+
+  registrarFactura(factura: IFactura) {
+    this._facturaService.registrarFactura(factura)
+      .subscribe(
+        {
+          next: (value: any) => {
+            console.table(value)
+          },
+          error: (error: any) => {
+            console.table(error)
+          },
+          complete: () => {
+            console.table(`Factura registrada con exito`)
+          }
+        }
+      )
   }
 }

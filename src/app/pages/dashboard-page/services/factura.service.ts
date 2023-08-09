@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IFactura } from 'src/app/models/factura.interface';
 import { EnvService } from 'src/app/services/env.service';
 
 @Injectable()
@@ -31,5 +32,10 @@ export class FacturaService {
     }
     console.log(`Consiguiendo facturas por id`);
     return this._httpClient.get(`${this.URL_API}Facturas/PorUsuario/${id}`, { params });
+  }
+
+  registrarFactura(factura: IFactura) {
+
+    return this._httpClient.post(`${this.URL_API}Facturas`, factura);
   }
 }

@@ -3,9 +3,9 @@
     <mat-card-header>
 
         <mat-card-title> -->
-<div>
-    <p>
-        Agregar Factura
+<div class="container-agregar-factura">
+    <p class="title-agregar-factura">
+        Cargar Factura
     </p>
     <!-- </mat-card-title>
     </mat-card-header> -->
@@ -18,7 +18,7 @@
 
             <mat-form-field>
                 <mat-label>
-                    Empresa
+                    Seleccione una Empresa
                 </mat-label>
                 <mat-select formControlName="idEmpresa">
                     <mat-option *ngFor="let emp of listEmpresas$|async" [value]="emp.id"
@@ -26,8 +26,8 @@
                         {{emp.nombre}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="idEmpresa?.errors?.['required']">Selecionar una empresa</mat-error>
             </mat-form-field>
-            <span *ngIf="idEmpresa?.errors" style="color: red;margin-left: 1rem;">Selecionar una empresa</span>
         </ng-container>
         <ng-template #AgregarFactura>
             <mat-form-field>
@@ -36,7 +36,8 @@
                 </mat-label>
                 <input matInput type="text" [value]="nombreEmpresa?.value" readonly="readonly">
             </mat-form-field>
-            <div>
+            <mat-divider></mat-divider>
+            <div class="content-btn-af">
                 <button mat-raised-button color="primary" type="button" (click)="agregarArticulo()">Agregar
                     Articulo</button>
             </div>
@@ -44,15 +45,17 @@
             <app-table-lineas-factura (emitterDelete)="deleteLF($event)"
                 [sourceTable]="listLineasFacturas.value"></app-table-lineas-factura>
 
-            <mat-form-field>
+            <mat-form-field class="input-total-amount">
                 <mat-label>Precio Total</mat-label>
                 <input matInput [value]="precioTotal?.value|currency" readonly="readonly">
             </mat-form-field>
 
             <!-- Boton para hacer submit del formulario -->
             <!-- Se deshabilita -->
-            <div></div>
-            <button mat-raised-button color="primary" type="submit">Crear Factura</button>
+            <div class="content-btn-submit">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!listLineasFacturas.length">Guardar
+                    Factura</button>
+            </div>
         </ng-template>
     </form>
 </div>
