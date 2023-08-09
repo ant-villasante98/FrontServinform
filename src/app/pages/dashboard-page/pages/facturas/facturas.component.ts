@@ -28,7 +28,7 @@ export class FacturasComponent implements OnInit {
   listFacturas$: Observable<IFactura[]> | null = null;
   listEmpresas$: Observable<IEmpresa[]> | null = null;
 
-  btnAction: boolean = false;
+  btnAction: boolean = true;
 
   constructor(
     private _facturaService: FacturaService,

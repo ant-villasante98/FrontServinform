@@ -16,7 +16,9 @@ table {
   // overflow: hidden;
 }
 .container-table {
-  width: 100%;
+  display: flex;
   overflow-x: auto;
-  padding: 1rem;
+  margin: 0 1rem 1px;
+  border-radius: 0.2rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
